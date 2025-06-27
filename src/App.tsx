@@ -18,6 +18,8 @@ import DashboardPage from "@/pages/DashboardPage";
 import TicketsPage from "@/pages/TicketsPage";
 import TicketDetailPage from "@/pages/TicketDetailPage";
 import CreateTicketPage from "@/pages/CreateTicketPage";
+import AllNotification from "./pages/AllNotification";
+import Profile from "./pages/Profile";
 
 const theme = createTheme({
   palette: {
@@ -79,6 +81,11 @@ const App: React.FC = () => {
                   }
                 >
                   <Route index element={<Navigate to="/tickets" replace />} />
+                  <Route
+                    path="allnotifications"
+                    element={<AllNotification />}
+                  />
+                  <Route path="profile" element={<Profile />} />
 
                   <Route
                     path="dashboard"

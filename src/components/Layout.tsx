@@ -5,7 +5,6 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  Button,
   Box,
   Drawer,
   List,
@@ -48,6 +47,15 @@ const Layout: React.FC = () => {
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [notificationAnchorEl, setNotificationAnchorEl] =
+    useState<null | HTMLElement>(null);
+
+  // Dummy notification data
+  const notifications = [
+    { id: 1, message: "New ticket assigned" },
+    { id: 2, message: "User registered" },
+    { id: 3, message: "Server downtime scheduled" },
+  ];
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -59,6 +67,25 @@ const Layout: React.FC = () => {
 
   const handleProfileMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleNotificationClick = (event: React.MouseEvent<HTMLElement>) => {
+    setNotificationAnchorEl(event.currentTarget);
+  };
+
+  const handleNotificationClose = () => {
+    setNotificationAnchorEl(null);
+  };
+
+  const handleViewAllNotifications = () => {
+    handleNotificationClose();
+    navigate("/allnotifications");
+  };
+
+  const handleProfileClick = () => {
+    handleProfileMenuClose();
+    navigate("/profile");
+    console.log("Profile clicked");
   };
 
   const handleLogout = () => {
@@ -174,8 +201,12 @@ const Layout: React.FC = () => {
             </Typography>
           </Badge>
 
-          <IconButton color="inherit" sx={{ mr: 1 }}>
-            <Badge badgeContent={0} color="error">
+          <IconButton
+            color="inherit"
+            sx={{ mr: 1 }}
+            onClick={handleNotificationClick}
+          >
+            <Badge badgeContent={notifications.length} color="error">
               <Notifications />
             </Badge>
           </IconButton>
@@ -196,6 +227,7 @@ const Layout: React.FC = () => {
         </Toolbar>
       </AppBar>
 
+      {/* Profile Menu */}
       <Menu
         anchorEl={anchorEl}
         anchorOrigin={{
@@ -210,24 +242,46 @@ const Layout: React.FC = () => {
         open={Boolean(anchorEl)}
         onClose={handleProfileMenuClose}
       >
-        <MenuItem onClick={handleProfileMenuClose}>
+        <MenuItem onClick={handleProfileClick}>
           <ListItemIcon>
             <AccountCircle fontSize="small" />
           </ListItemIcon>
           Profile
         </MenuItem>
-        <MenuItem onClick={handleProfileMenuClose}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
+
         <Divider />
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
           Logout
+        </MenuItem>
+      </Menu>
+
+      {/* Notifications Menu */}
+      <Menu
+        anchorEl={notificationAnchorEl}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        open={Boolean(notificationAnchorEl)}
+        onClose={handleNotificationClose}
+      >
+        {notifications.length > 0 ? (
+          notifications.map((notification) => (
+            <MenuItem key={notification.id} onClick={handleNotificationClose}>
+              {notification.message}
+            </MenuItem>
+          ))
+        ) : (
+          <MenuItem onClick={handleNotificationClose}>
+            No notifications
+          </MenuItem>
+        )}
+        <MenuItem
+          sx={{ justifyContent: "center", cursor: "pointer" }}
+          onClick={handleViewAllNotifications}
+        >
+          {"Mark all as read"}
         </MenuItem>
       </Menu>
 
