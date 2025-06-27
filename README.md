@@ -26,15 +26,13 @@
 4. [Architecture](#-architecture)
 5. [Installation](#-installation)
 6. [Usage](#-usage)
-7. [API Integration](#-api-integration)
-8. [Real-time Features](#-real-time-features)
-9. [Role-based Access](#-role-based-access)
-10. [Components Structure](#-components-structure)
-11. [State Management](#-state-management)
-12. [Deployment](#-deployment)
-13. [Screenshots](#-screenshots)
-14. [Contributing](#-contributing)
-15. [License](#-license)
+7. [Real-time Features](#-real-time-features)
+8. [Role-based Access](#-role-based-access)
+9. [Components Structure](#-components-structure)
+10. [State Management](#-state-management)
+11. [Deployment](#-deployment)
+12. [Screenshots](#-screenshots)
+13. [License](#-license)
 
 ---
 
